@@ -1,9 +1,29 @@
-.outer-shadow {
-    --outer-shadow: 3px 3px 3px #d0d0d0, -3px -3px 3px #f8f8f8;
-    box-shadow: var(--outer-shadow);
+body {
+  background: red;
+  text-align: center;
+  color: white;
+  font-family: cursive;
 }
 
-.inner-shadow {
-    --inner-shadow: inset 3px 3px 3px #d0d0d0, inset -3px -3px 3px #f8f8f8;
-    box-shadow: var(--inner-shadow);
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.face-detection {
+    color: white;
+    border-radius: 50px;
+    border: 2px solid white;
+}
+
+.face-detection img {
+    border-radius: 50px;
+    border: 2px solid white;
+    z-index: 999;
+}
+
+.face-detection, .muisc-table {
+    padding: 10px;
 }

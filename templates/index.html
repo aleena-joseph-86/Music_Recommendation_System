@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emotion Music Recommendation</title>
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
+    /> -->
+    <link rel="stylesheet" href="../static/css/style.css" />
     <script>
       function fetchRecommendations() {
         fetch("/music_recommendations")
@@ -21,18 +22,19 @@
     </script>
   </head>
   <body>
-    <div class="container mt-5">
-      <h1 class="text-center">Emotion Music Recommendation System</h1>
-      <div class="text-center">
+    <h1 class="header">Emotion Music Recommendation System</h1>
+    <div class="container">
+      <div class="face-detection">
+        <p>All eyes on You</p>
         <img
           src="{{ url_for('video_feed') }}"
           width="640"
           height="480"
-          class="img-fluid"
+          class="img"
           alt="Video Feed"
         />
       </div>
-      <div id="music-table" class="mt-4">
+      <div id="music-table" class="music-table">
         <!-- Music recommendations will be populated here -->
       </div>
     </div>
