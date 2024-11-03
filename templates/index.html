@@ -4,21 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emotion Music Recommendation</title>
-    <!-- <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    /> -->
     <link rel="stylesheet" href="../static/css/style.css" />
     <script>
       function fetchRecommendations() {
+        fetch("/video_feed")
+          .then((response) => {
+            // Check if the response is of type multipart
+            if (response.ok) {
+              return response.blob(); // Read response as a Blob for the image
+            } else {
+              throw new Error("Network response was not ok");
+            }
+          })
+          .then((imageBlob) => {
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            document.querySelector(".img").src = imageObjectURL; // Update video feed image
+          })
+          .catch((error) => console.error("Error fetching video feed:", error));
+
+        // Fetch the music recommendations and cheerful messages separately
         fetch("/music_recommendations")
           .then((response) => response.text())
           .then((data) => {
-            document.getElementById("music-table").innerHTML = data;
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(data, "text/html");
+            const songs = htmlDoc.getElementsByTagName("table")[0];
+            document.getElementById("music-table").innerHTML = songs.outerHTML;
           });
+
+        // Additionally, fetch cheerful message
+        const messages = [
+          "You're amazing just the way you are!",
+          "Every day is a new beginning. Take a deep breath and start again!",
+          "Your smile can change the world!",
+          "Stay strong, you are doing better than you think!",
+          "You have the power to create change!",
+          "Believe in the magic within you!",
+          "Keep shining, beautiful soul!",
+          "You are loved, and you matter!",
+          "Small steps every day lead to big changes!",
+          "You are braver than you believe, stronger than you seem, and smarter than you think!",
+          "Your potential is endless. Go do what you were created to do!",
+          "Chase your dreams, but always know the road that will lead you home again!",
+          "You bring something unique and valuable to the world!",
+          "Don't count the days, make the days count!",
+          "You’re a beautiful person with so much to give!",
+          "Your positivity is contagious!",
+          "The best is yet to come!",
+          "You are enough, just as you are!",
+          "You are a work of art!",
+          "Radiate positivity and watch it come back to you!",
+        ];
+
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        const cheerfulMessage = messages[randomIndex];
+        document.getElementById("cheerful-message").innerText = cheerfulMessage;
       }
 
-      setInterval(fetchRecommendations, 5000); // Fetch recommendations every 5 seconds
+      // Fetch recommendations every 5 seconds
+      setInterval(fetchRecommendations, 5000);
     </script>
   </head>
   <body>
@@ -37,6 +81,9 @@
       <div id="music-table" class="music-table">
         <!-- Music recommendations will be populated here -->
       </div>
+    </div>
+    <div id="cheerful-message" class="cheerful-message">
+      <!-- Cheerful messages will be displayed here -->
     </div>
   </body>
 </html>
