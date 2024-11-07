@@ -58,6 +58,12 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
+@app.route('/clear_session')
+def clear_session():
+    # Clears all session data
+    session.clear()
+    return 'Session has been cleared.'
+
 def generate_frames():
     while True:
         frame, df1 = video_camera.get_frame()

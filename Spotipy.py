@@ -1,4 +1,4 @@
-                            # We are not using this file at all
+#                             # We are not using this file at all
 
 # import spotipy
 # import spotipy.oauth2 as oauth2
@@ -113,58 +113,58 @@
 #     df.to_csv('songs/surprised.csv')
 # print("CSV Generated")
 
-# import spotipy
-# from spotipy.oauth2 import SpotifyOAuth
-# import pandas as pd
-# import time
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+import pandas as pd
+import time
 
-# auth_manager = SpotifyOAuth(client_id='2a4248a81b5f4e01818be84d3321d9c9',
-#                             client_secret='11db550c64d546c2ad06cc021b8c904f',
-#                             redirect_uri='http://localhost:8888/callback',
-#                             scope='user-modify-playback-state user-read-playback-state')
-# sp = spotipy.Spotify(auth_manager=auth_manager)
+auth_manager = SpotifyOAuth(client_id='2a4248a81b5f4e01818be84d3321d9c9',
+                            client_secret='11db550c64d546c2ad06cc021b8c904f',
+                            redirect_uri='http://localhost:8888/callback',
+                            scope='user-modify-playback-state user-read-playback-state')
+sp = spotipy.Spotify(auth_manager=auth_manager)
 
-# def getTrackIDs(playlist_id):
-#     track_ids = []
-#     playlist = sp.playlist(playlist_id)  # Updated method
-#     for item in playlist['tracks']['items']:
-#         track = item['track']
-#         track_ids.append(track['id'])
-#     return track_ids
+def getTrackIDs(playlist_id):
+    track_ids = []
+    playlist = sp.playlist(playlist_id)  # Updated method
+    for item in playlist['tracks']['items']:
+        track = item['track']
+        track_ids.append(track['id'])
+    return track_ids
 
-# def getTrackFeatures(track_id):
-#     track_info = sp.track(track_id)
-#     name = track_info['name']
-#     album = track_info['album']['name']
-#     artist = track_info['album']['artists'][0]['name']
-#     track_data = [name, album, artist]
-#     return track_data
+def getTrackFeatures(track_id):
+    track_info = sp.track(track_id)
+    name = track_info['name']
+    album = track_info['album']['name']
+    artist = track_info['album']['artists'][0]['name']
+    track_data = [name, album, artist]
+    return track_data
 
-# def playTrack(track_uri):
-#     sp.start_playback(uris=[track_uri])
+def playTrack(track_uri):
+    sp.start_playback(uris=[track_uri])
 
-# # Playlist mapping by emotion
-# emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
-# music_dist = {
-#     0: "0l9dAmBrUJLylii66JOsHB", 
-#     1: "1n6cpWo9ant4WguEo91KZh",
-#     2: "4cllEPvFdoX6NIVWPKai9I",
-#     3: "0deORnapZgrxFY4nsKr9JA",
-#     4: "4kvSlabrnfRCQWfN0MgtgA",
-#     5: "1n6cpWo9ant4WguEo91KZh",
-#     6: "37i9dQZEVXbMDoHDwVN2tF"
-# }
+# Playlist mapping by emotion
+emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
+music_dist = {
+    0: "0l9dAmBrUJLylii66JOsHB", 
+    1: "1n6cpWo9ant4WguEo91KZh",
+    2: "4cllEPvFdoX6NIVWPKai9I",
+    3: "0deORnapZgrxFY4nsKr9JA",
+    4: "4kvSlabrnfRCQWfN0MgtgA",
+    5: "1n6cpWo9ant4WguEo91KZh",
+    6: "37i9dQZEVXbMDoHDwVN2tF"
+}
 
-# # Example of generating CSV and playing tracks
-# track_ids = getTrackIDs(music_dist[0])
-# track_list = []
-# for i in range(len(track_ids)):
-#     time.sleep(.3)
-#     track_data = getTrackFeatures(track_ids[i])
-#     track_list.append(track_data)
-# df = pd.DataFrame(track_list, columns=['Name', 'Album', 'Artist'])
-# df.to_csv('songs/angry.csv', index=False)
-# print("CSV Generated")
+# Example of generating CSV and playing tracks
+track_ids = getTrackIDs(music_dist[0])
+track_list = []
+for i in range(len(track_ids)):
+    time.sleep(.3)
+    track_data = getTrackFeatures(track_ids[i])
+    track_list.append(track_data)
+df = pd.DataFrame(track_list, columns=['Name', 'Album', 'Artist'])
+df.to_csv('songs/angry.csv', index=False)
+print("CSV Generated")
 
-# # Optionally play a track from the playlist
-# playTrack(track_ids[0])  # Playing the first track
+# Optionally play a track from the playlist
+playTrack(track_ids[0])  # Playing the first track
