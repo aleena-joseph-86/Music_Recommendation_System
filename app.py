@@ -1,15 +1,62 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request, redirect, session, url_for
 from camera import VideoCamera  # Import your VideoCamera class
 import pandas as pd
 import json
 
 app = Flask(__name__)
+app.secret_key = '123abcd567efg890h'
 video_camera = VideoCamera()
 
+users = {
+    "aleena" : "12345"
+}
+
+# Home page - requires login
 @app.route('/')
 def index():
-    # Render the index page
-    return render_template('index.html')
+    if 'username' in session:
+        return render_template('index.html', username=session['username'])
+    else:
+        return redirect(url_for('login'))  # Redirect to login if not logged in
+
+# Login page
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Check if the user is in the dictionary
+        if username in users and users[username] == password:
+            session['username'] = username
+            return redirect(url_for('index'))
+        else:
+            message = "Invalid credentials or new user. Please register."
+            return render_template('login.html', message=message)
+    
+    return render_template('login.html')
+
+# Registration page
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Store new user credentials in the dictionary
+        users[username] = password
+        session['username'] = username
+
+        print("Current stored users: ", users)
+        return redirect(url_for('index'))
+    
+    return render_template('register.html')
+
+# Route for logging out
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 def generate_frames():
     while True:

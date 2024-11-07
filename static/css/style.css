@@ -5,6 +5,20 @@ body {
   font-family: cursive;
 }
 
+.logout {
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  text-decoration: none;
+  color: white;
+  border-radius: 50px;
+  border: 1px double white;
+}
+
+.logout span {
+  padding: 5px;
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -13,17 +27,38 @@ body {
 }
 
 .face-detection {
-    color: white;
-    border-radius: 50px;
-    border: 2px solid white;
+  color: white;
+  border-radius: 50px;
+  border: 2px solid white;
 }
 
 .face-detection img {
-    border-radius: 50px;
-    border: 2px solid white;
-    z-index: 999;
+  border-radius: 50px;
+  border: 2px solid white;
+  z-index: 999;
 }
 
-.face-detection, .muisc-table {
-    padding: 10px;
+.face-detection,
+.muisc-table {
+  padding: 10px;
+}
+
+.register,
+.login {
+  border: 1px solid white;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+}
+
+.register form,
+.login form {
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 24px;
 }
