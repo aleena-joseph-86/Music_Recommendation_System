@@ -4,7 +4,7 @@ import pandas as pd
 import json
 
 app = Flask(__name__)
-app.secret_key = '123abcd567efg890h'
+app.secret_key = 'aleenaSecretKey12345'
 video_camera = VideoCamera()
 
 users = {
